@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/forum.css' %}">
+    <title>Document</title>
+</head>
+
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="/" class="logo">
+                <img src="https://cdn.dorik.com/6587cf2393037000111f0b06/images/logo-b16Cp.png" alt="Logo">
+            </a>
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/forum/">Forum</a></li>
+                <li class="dropdown">
+                    <a class="drop-trigger">Blog</a>
+                    <ul class="dropdown-content">
+                        <li style="list-style-type: none; border-radius: 12px;"><a style="border-radius: 12px;"
+                                href="/essay/">Essay</a></li>
+                        <li style="list-style-type: none; border-radius: 12px;"><a style="border-radius: 12px;"
+                                href="/books/">Books</a></li>
+                        <li style="list-style-type: none; border-radius: 12px;"><a style="border-radius: 12px;"
+                                href="/podcasts/">Podcasts</a></li>
+                    </ul>
+                </li>
+
+                <li><a href="/contact/">Contact</a></li>
+                <li>
+                    {% if request.user.is_authenticated %}
+                    <form action="{% url 'logout' %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit">
+                            Log Out
+                        </button>
+                    </form>
+
+                    {% else %}
+                    <a href="{% url 'login' %}">
+                        Sign In
+                    </a>
+                    {% endif %}
+                </li>
+
+            </ul>
+
+            <div class="burger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </div>
+    </nav>
+    <h2 class="create-forum-style">Создание новой темы</h2>
+
+    <!-- create_topic.html -->
+    {% if user.is_authenticated %}
+    <form class="forum-form" method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="forum-submit-button" type="submit">Create Topic</button>
+    </form>
+    {% else %}
+    <p>You must be logged in to create a topic.</p>
+    {% endif %}
+
+    <footer>
+
+        <div class="footer-container">
+            <div class="footer-col">
+                <h1>Site Map</h1>
+                <div class="footer-list">
+                    <p>Home</p>
+                    <p>Articles</p>
+                    <p>Discussions</p>
+                    <p>About</p>
+                    <p>Contact Us</p>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h1>Connect</h1>
+                <div class="footer-list">
+                    <a href="https://t.me/quedforum" target="_blank">Telegram</a>
+                    <a href="https://www.instagram.com/thequedio?igsh=MWZkNHNkd3hodXVkaw==" target="_blank">Instagram
+                    </a>
+                    <a href="https://www.linkedin.com/company/quedio/" target="_blank">LinkedIn</a>
+                    <a>Twitter</a>
+                    <a>YouTube</a>
+                </div>
+            </div>
+        </div>
+
+    </footer>
+</body>
+
+</html>

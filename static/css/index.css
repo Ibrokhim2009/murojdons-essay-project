@@ -1,0 +1,340 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'DM Sans' sans-serif;
+}
+
+
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+
+    .hero h2 {
+        font-size: 2rem;
+    }
+
+
+    .hero-div {
+
+        text-align: center;
+    }
+
+}
+
+/* Animation classes */
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+
+
+
+
+/* about ----------------------------------------------------------------------------------------------- */
+
+
+
+.about {
+    max-width: 1100px;
+    width: 100%;
+    margin: auto;
+    padding: 60px 32px;
+
+    img {
+        height: auto;
+        width: 100%;
+        border-radius: 10px;
+        margin-top: 48px;
+        object-fit: cover;
+        max-height: 350px;
+    }
+
+    .about-div1 {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 32px;
+        font-family: 'DM Sans', sans-serif;
+
+        .about-div2 {
+            max-width: 480px;
+            width: 100%;
+
+            h2 {
+                font-size: 46px;
+                font-weight: 400;
+                line-height: 1.2;
+            }
+
+            p {
+                color: rgb(0, 80, 0);
+                margin-bottom: 20px;
+                font-size: 1rem;
+            }
+        }
+
+        .about-p {
+            max-width: 424px;
+            width: 100%;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: #333;
+        }
+    }
+
+    @media (max-width: 992px) {
+        .about-div1 {
+            flex-direction: column;
+            align-items: flex-start;
+
+            .about-div2,
+            .about-p {
+                max-width: 100%;
+            }
+
+            .about-p {
+                margin-top: 0px;
+            }
+        }
+
+        img {
+            margin-top: 22px;
+        }
+    }
+
+    @media (max-width: 576px) {
+        padding: 40px 20px;
+
+        .about-div1 {
+            .about-div2 h2 {
+                font-size: 32px;
+            }
+
+            .about-div2 p {
+                font-size: 0.95rem;
+            }
+
+            .about-p {
+                font-size: 0.9rem;
+            }
+        }
+
+        img {
+            max-height: 250px;
+        }
+    }
+}
+
+
+
+
+
+
+/* DIALOG ------------------------------------------------------------------------------------------------------------------------------------------------------- */
+
+
+
+
+
+
+
+
+
+
+
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.dialog {
+    padding: 100px 20px;
+    background-color: #F2F5F5;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+}
+
+.dialog-container {
+    max-width: 1100px;
+    margin: auto;
+    width: 100%;
+}
+
+.dialog-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+.dialog-header h1 {
+    max-width: 400px;
+    font-size: 48px;
+    font-weight: 400;
+    width: 100%;
+}
+
+.dialog-header div {
+    display: flex;
+    flex-direction: column;
+    gap: 26px;
+    align-items: start;
+    width: 100%;
+    max-width: 460px;
+    min-width: 300px;
+
+}
+
+.dialog-header p {
+    color: #222526;
+}
+
+.start-now {
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border: 0px;
+    outline: 0px;
+    font-size: 1rem;
+    border-radius: 5px;
+    color: white;
+    background-color: #5B7D87;
+    cursor: pointer;
+}
+
+.dialog-cards-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.dialog-card {
+    display: flex;
+    margin-top: 60px;
+    justify-content: space-between;
+    gap: 20px;
+    border-radius: 10px;
+    padding: 40px 32px;
+    background-color: white;
+    position: relative;
+}
+
+.dialog-card div {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: space-around;
+}
+
+.dialog-card h1 {
+    font-size: 38px;
+    font-weight: 400;
+    color: #090C0D;
+}
+
+.dialog-card p {
+    max-width: 505px;
+    font-size: 1rem;
+    margin: 20px 0;
+}
+
+.dialog-card button {
+    padding: 16px 20px;
+    border: #5B7D87 1px solid;
+    border-radius: 5px;
+    background-color: white;
+    color: #5B7D87;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.dialog-card button:hover {
+    background-color: #5B7D87;
+    color: white;
+    transition: all 0.2s linear;
+}
+
+.dialog-card img {
+    height: 230px;
+    width: 100%;
+    max-width: 400px;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+.dialog-card img:hover {
+    transform: scale(1.05);
+    transition: all 0.3s ease-out;
+}
+
+
+/* Media Queries */
+@media (min-width: 992px) {
+    .dialog-card::after {
+        display: block;
+    }
+}
+
+@media (max-width: 800px) {
+    .dialog-header {
+        flex-direction: column;
+        align-items: flex-start;
+
+        h1 {
+            max-width: 1300px;
+        }
+    }
+
+    .dialog-card {
+        flex-direction: column;
+        align-items: start;
+        text-align: start;
+
+        img {
+            width: 100%;
+            max-width: 1300px;
+        }
+    }
+
+    .dialog-card div {
+        align-items: start;
+    }
+}
+
+@media (max-width: 574px) {
+    .dialog {
+        padding: 60px 20px;
+    }
+
+    .dialog-header h1 {
+        font-size: 36px;
+    }
+
+    .dialog-card h1 {
+        font-size: 30px;
+    }
+
+    .dialog-card {
+        padding: 30px 20px;
+    }
+}

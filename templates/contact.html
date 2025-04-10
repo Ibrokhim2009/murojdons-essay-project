@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Philosophy Books | Reflections & Discussions</title>
+    <link rel="stylesheet" href="{% static 'css/contact.css' %}">
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+</head>
+
+
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="/" class="logo">
+                <img src="https://cdn.dorik.com/6587cf2393037000111f0b06/images/logo-b16Cp.png" alt="Logo">
+            </a>
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/forum/">Forum</a></li>
+                <li class="dropdown">
+                    <a class="drop-trigger">Blog</a>
+                    <ul class="dropdown-content">
+                        <li style="list-style-type: none; border-radius: 12px;"><a style="border-radius: 12px;"
+                                href="/essay/">Essay</a></li>
+                        <li style="list-style-type: none; border-radius: 12px;"><a style="border-radius: 12px;"
+                                href="/books/">Books</a></li>
+                        <li style="list-style-type: none; border-radius: 12px;"><a style="border-radius: 12px;"
+                                href="/podcasts/">Podcasts</a></li>
+                    </ul>
+                </li>
+
+                <li><a href="/contact/">Contact</a></li>
+                <li>
+                    {% if request.user.is_authenticated %}
+                    <form action="{% url 'logout' %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit">
+                            Log Out
+                        </button>
+                    </form>
+
+                    {% else %}
+                    <a href="{% url 'login' %}">
+                        Sign In
+                    </a>
+                    {% endif %}
+                </li>
+
+            </ul>
+
+            <div class="burger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </div>
+    </nav>
+    <div class="contact-header">
+        <h2>Contact us</h2>
+        <p>You can contact with us if you have any questions about we-site or something else. </p>
+    </div>
+    <div class="contact-form">
+        <form method="post">
+            {% csrf_token %}
+            {{ form.non_field_errors }}
+
+            {% if user.is_authenticated %}
+            {% else %}
+            <div class="form-group">
+                <label for="{{ form.name.id_for_label }}">{{ form.name.label }}</label>
+                {{ form.name }}
+                <div class="error-message">{{ form.name.errors }}</div>
+            </div>
+            {% endif %}
+
+            <div class="form-group">
+                <label for="{{ form.email.id_for_label }}">{{ form.email.label }}</label>
+                {{ form.email }}
+                <div class="error-message">{{ form.email.errors }}</div>
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.message.id_for_label }}">{{ form.message.label }}</label>
+                {{ form.message }}
+                <div class="error-message">{{ form.message.errors }}</div>
+            </div>
+
+            <button type="submit" class="submit-button">Sent message</button>
+        </form>
+
+        {% if messages %}
+        <div class="message-container success-message">
+            {% for message in messages %}
+            <div>{{ message }}</div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+
+
+
+    <footer>
+
+        <div class="footer-container">
+            <div class="footer-col">
+                <h1>Site Map</h1>
+                <div class="footer-list">
+                    <p>Home</p>
+                    <p>Articles</p>
+                    <p>Discussions</p>
+                    <p>About</p>
+                    <p>Contact Us</p>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h1>Connect</h1>
+                <div class="footer-list">
+                    <a href="https://t.me/quedforum" target="_blank">Telegram</a>
+                    <a href="https://www.instagram.com/thequedio?igsh=MWZkNHNkd3hodXVkaw==" target="_blank">Instagram
+                    </a>
+                    <a href="https://www.linkedin.com/company/quedio/" target="_blank">LinkedIn</a>
+                    <a>Twitter</a>
+                    <a>YouTube</a>
+                </div>
+            </div>
+        </div>
+
+    </footer>
+
+    <script src="{% static 'js/index.js' %}"></script>
+</body>
+
+</html>

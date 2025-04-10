@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Philosophy Books | Reflections & Discussions</title>
+    <link rel="stylesheet" href="{% static 'css/blog.css' %}">
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+</head>
+
+
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="/" class="logo">
+                <img src="https://cdn.dorik.com/6587cf2393037000111f0b06/images/logo-b16Cp.png" alt="Logo">
+            </a>
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/forum/">Forum</a></li>
+                <li class="dropdown">
+                    <a class="drop-trigger">Blog</a>
+                    <ul class="dropdown-content">
+                        <li style="list-style-type: none; border-radius: 12px;"><a style="border-radius: 12px;"
+                                href="/essay/">Essay</a></li>
+                        <li style="list-style-type: none; border-radius: 12px;"><a style="border-radius: 12px;"
+                                href="/books/">Books</a></li>
+                        <li style="list-style-type: none; border-radius: 12px;"><a style="border-radius: 12px;"
+                                href="/podcasts/">Podcasts</a></li>
+                    </ul>
+                </li>
+
+                <li><a href="/contact/">Contact</a></li>
+                <li>
+                    {% if request.user.is_authenticated %}
+                    <form action="{% url 'logout' %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit">
+                            Log Out
+                        </button>
+                    </form>
+
+                    {% else %}
+                    <a href="{% url 'login' %}">
+                        Sign In
+                    </a>
+                    {% endif %}
+                </li>
+
+            </ul>
+
+            <div class="burger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </div>
+    </nav>
+    <div class="podcasts-container">
+        <div class="podcasts-header">
+            <h2 style="color: #323232;" class="podcasts-title">Podcasts</h2>
+            <p style="color: #323232;" class="podcasts-subtitle">Lister podcast with good quality</p>
+        </div>
+
+        <div class="podcasts-grid">
+            <!-- Подкаст 1 -->
+            {% for podcast in podcasts %}
+            <div class="podcast-card">
+                <div class="podcast-media">
+                    {% if podcast.banner %}
+                    <img src="{{ podcast.banner.url }}" alt="Banner">
+                    {% elif podcast.banner_url %}
+                    <img src="{{ podcast.banner_url }}" alt="Banner">
+                    <div class="play-overlay">
+                        {% if podcast.video %}
+                        <button class="play-button" data-video="{{ podcast.video.url }}"
+                            data-title="Будущее искусственного интеллекта в бизнесе"
+                            data-meta="{{ podcast.duration }} minutes">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M8 5v14l11-7z" />
+                            </svg>
+                        </button>
+                        {% elif podcast.video_url %}
+                        <button class="play-button" data-video="{{ podcast.video_url }}"
+                            data-title="Будущее искусственного интеллекта в бизнесе"
+                            data-meta="{{ podcast.duration }} minutes">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M8 5v14l11-7z" />
+                            </svg>
+                        </button>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="podcast-content">
+                    <h3 class="podcast-title">{{ podcast.title }}</h3>
+                    <p class="podcast-description">{{ podcast.description }}</p>
+                    <div class="podcast-meta">
+                        <div class="podcast-duration">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path
+                                    d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 22c-5.523 0-10-4.477-10-10S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm.5-15H11v6l5.25 3.15.75-1.23-4.5-2.67V7z" />
+                            </svg>
+                            <span>{{ podcast.duration }} minutes</span>
+                        </div>
+                        <div class="podcast-date">{{ podcast.created_at }}</div>
+                    </div>
+                    <div class="podcast-tags">
+                        {% for tag in podcast.tags.all %}
+                        <span class="podcast-tag">{{ tag.name }}</span>
+                        {% endfor %}
+                    </div>
+                    <div class="podcast-actions">
+                        {% if podcast.video_url %}
+                        <button class="podcast-button" data-video="{{ podcast.video_url }}"
+                            data-title="{{ podcast.title }}" data-meta="{{ podcast.duration }} minutes">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M8 5v14l11-7z" />
+                            </svg>
+                            Listen
+                        </button>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+    </div>
+
+    <!-- Fullscreen Video Overlay -->
+    <div class="fullscreen-video">
+        <button class="close-video">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path
+                    d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z" />
+            </svg>
+        </button>
+        <div class="video-container">
+            <iframe src="" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <div class="video-info">
+            <div class="video-title"></div>
+            <div class="video-meta"></div>
+        </div>
+    </div>
+
+
+    <footer>
+
+        <div class="footer-container">
+            <div class="footer-col">
+                <h1>Site Map</h1>
+                <div class="footer-list">
+                    <p>Home</p>
+                    <p>Articles</p>
+                    <p>Discussions</p>
+                    <p>About</p>
+                    <p>Contact Us</p>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h1>Connect</h1>
+                <div class="footer-list">
+                    <a href="https://t.me/quedforum" target="_blank">Telegram</a>
+                    <a href="https://www.instagram.com/thequedio?igsh=MWZkNHNkd3hodXVkaw==" target="_blank">Instagram
+                    </a>
+                    <a href="https://www.linkedin.com/company/quedio/" target="_blank">LinkedIn</a>
+                    <a>Twitter</a>
+                    <a>YouTube</a>
+                </div>
+            </div>
+        </div>
+
+    </footer>
+
+    <script src="{% static 'js/podcast.js' %}"></script>
+</body>
+
+</html>

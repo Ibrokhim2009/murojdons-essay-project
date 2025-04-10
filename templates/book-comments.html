@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Форум обсуждений</title>
+    <link rel="stylesheet" href="{% static 'css/blog.css' %}">
+</head>
+
+<body>
+    <div class="container">
+        <div class="topic">
+            <div class="topic-header">
+                <h1 class="topic-title">{{ book.theme_title }}</h1>
+            </div>
+            <div class="topic-meta">
+                Автор: <strong>{{ book.author }}</strong><br>
+                Создано: <time>{{ book.created_at|date:"d.m.Y H:i" }}</time>
+            </div>
+            <div class="topic-content">
+                {% for theme in book.themes.all %}
+                <p>{{ theme.theme }}</p>
+                {% empty %}
+                <p>Нет тем для этой книги.</p>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="comments-section">
+
+            {% if comments %}
+            <h3 class="comments-header">Комментарии ({{ comments.count }})</h3>
+            {% for comment in comments %}
+            <div class="comment">
+                <div class="comment-header">
+                    <span class="comment-author">{{ comment.user.username }}</span>
+                    <span class="comment-date">{{ comment.created_at|date:"d.m.Y H:i" }}</span>
+                </div>
+                <div class="comment-content">
+                    <p>{{ comment.content }}</p>
+                </div>
+            </div>
+            {% endfor %}
+            {% else %}
+            <p>Комментариев пока нет.</p>
+            {% endif %}
+
+            <div class="comment-form">
+                {% if user.is_authenticated %}
+                <form method="POST">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="btn">Отправить</button>
+                </form>
+                {% else %}
+                <p>Пожалуйста, <a href="{% url 'login' %}">войдите</a>, чтобы оставить комментарий.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
