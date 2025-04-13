@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Function to open fullscreen video
     function openFullscreenVideo(videoUrl, title, meta) {
         videoIframe.src = videoUrl;
+        console.log(">>>>>>>>", videoUrl)
         videoTitle.textContent = title;
         videoMeta.textContent = meta;
         fullscreenVideo.classList.add('active');
@@ -44,7 +45,7 @@ document.addEventListener('DOMContentLoaded', function () {
             openFullscreenVideo(videoUrl, title, meta);
         });
     });
-    console.log(meta)
+    // console.log(meta)
     // Close video when clicking the close button
     closeVideo.addEventListener('click', function () {
         closeFullscreenVideo();

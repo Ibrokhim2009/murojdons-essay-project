@@ -5,19 +5,66 @@
     {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Форум обсуждений</title>
+    <title> </title>
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
     <link rel="stylesheet" href="{% static 'css/blog.css' %}">
 </head>
 
 <body>
+    <nav>
+        <div class="nav-container">
+            <a href="/" class="logo">
+                <img src="https://cdn.dorik.com/6587cf2393037000111f0b06/images/logo-b16Cp.png" alt="Logo">
+            </a>
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/forum/">Forum</a></li>
+                <li class="dropdown">
+                    <a class="drop-trigger">Blog</a>
+                    <ul class="dropdown-content">
+                        <li style="list-style-type: none; border-radius: 12px;"><a style="border-radius: 12px;"
+                                href="/essay/">Essay</a></li>
+                        <li style="list-style-type: none; border-radius: 12px;"><a style="border-radius: 12px;"
+                                href="/books/">Books</a></li>
+                        <li style="list-style-type: none; border-radius: 12px;"><a style="border-radius: 12px;"
+                                href="/podcasts/">Podcasts</a></li>
+                    </ul>
+                </li>
+
+                <li><a href="/contact/">Contact</a></li>
+                <li>
+                    {% if request.user.is_authenticated %}
+                    <form action="{% url 'logout' %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit">
+                            Log Out
+                        </button>
+                    </form>
+
+                    {% else %}
+                    <a href="{% url 'login' %}">
+                        Sign In
+                    </a>
+                    {% endif %}
+                </li>
+
+            </ul>
+
+            <div class="burger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </div>
+    </nav>
     <div class="container">
         <div class="topic">
             <div class="topic-header">
                 <h1 class="topic-title">{{ book.theme_title }}</h1>
             </div>
             <div class="topic-meta">
-                Автор: <strong>{{ book.author }}</strong><br>
-                Создано: <time>{{ book.created_at|date:"d.m.Y H:i" }}</time>
+                Author: <strong>{{ book.author }}</strong><br>
+                Created at: <time>{{ book.created_at|date:"d.m.Y H:i" }}</time>
             </div>
             <div class="topic-content">
                 {% for theme in book.themes.all %}
@@ -31,7 +78,7 @@
         <div class="comments-section">
 
             {% if comments %}
-            <h3 class="comments-header">Комментарии ({{ comments.count }})</h3>
+            <h3 class="comments-header">Comments ({{ comments.count }})</h3>
             {% for comment in comments %}
             <div class="comment">
                 <div class="comment-header">
@@ -52,14 +99,42 @@
                 <form method="POST">
                     {% csrf_token %}
                     {{ form.as_p }}
-                    <button type="submit" class="btn">Отправить</button>
+                    <button type="submit" class="btn">Sent</button>
                 </form>
                 {% else %}
-                <p>Пожалуйста, <a href="{% url 'login' %}">войдите</a>, чтобы оставить комментарий.</p>
+                <p>Please <a href="{% url 'login' %}">sign in</a>, to white a comment</p>
                 {% endif %}
             </div>
         </div>
     </div>
+    <footer>
+
+        <div class="footer-container">
+            <div class="footer-col">
+                <h1>Site Map</h1>
+                <div class="footer-list">
+                    <p>Home</p>
+                    <p>Articles</p>
+                    <p>Discussions</p>
+                    <p>About</p>
+                    <p>Contact Us</p>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h1>Connect</h1>
+                <div class="footer-list">
+                    <a href="https://t.me/quedforum" target="_blank">Telegram</a>
+                    <a href="https://www.instagram.com/thequedio?igsh=MWZkNHNkd3hodXVkaw==" target="_blank">Instagram
+                    </a>
+                    <a href="https://www.linkedin.com/company/quedio/" target="_blank">LinkedIn</a>
+                    <a>Twitter</a>
+                    <a>YouTube</a>
+                </div>
+            </div>
+        </div>
+
+    </footer>
+    <script src="{% static 'js/index.js' %}"></script>
 </body>
 
 </html>

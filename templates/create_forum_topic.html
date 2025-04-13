@@ -5,6 +5,7 @@
     {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
     <link rel="stylesheet" href="{% static 'css/forum.css' %}">
     <title>Document</title>
 </head>
@@ -56,46 +57,22 @@
             </div>
         </div>
     </nav>
-    <h2 class="create-forum-style">Создание новой темы</h2>
+    {% if user.is_authenticated %}  
+    <h2 class="create-forum-style">Create new theme for forum</h2>
 
     <!-- create_topic.html -->
-    {% if user.is_authenticated %}
     <form class="forum-form" method="POST">
         {% csrf_token %}
         {{ form.as_p }}
         <button class="forum-submit-button" type="submit">Create Topic</button>
     </form>
     {% else %}
-    <p>You must be logged in to create a topic.</p>
+    <h2>Please <a href="/login/"> sign up</a> to create a new forum topic </h2>
     {% endif %}
 
-    <footer>
 
-        <div class="footer-container">
-            <div class="footer-col">
-                <h1>Site Map</h1>
-                <div class="footer-list">
-                    <p>Home</p>
-                    <p>Articles</p>
-                    <p>Discussions</p>
-                    <p>About</p>
-                    <p>Contact Us</p>
-                </div>
-            </div>
-            <div class="footer-col">
-                <h1>Connect</h1>
-                <div class="footer-list">
-                    <a href="https://t.me/quedforum" target="_blank">Telegram</a>
-                    <a href="https://www.instagram.com/thequedio?igsh=MWZkNHNkd3hodXVkaw==" target="_blank">Instagram
-                    </a>
-                    <a href="https://www.linkedin.com/company/quedio/" target="_blank">LinkedIn</a>
-                    <a>Twitter</a>
-                    <a>YouTube</a>
-                </div>
-            </div>
-        </div>
+    <script src="{% static 'js/index.js' %}"></script>
 
-    </footer>
 </body>
 
 </html>
